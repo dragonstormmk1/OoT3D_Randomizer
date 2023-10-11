@@ -1220,6 +1220,10 @@ SECTIONS
 		*(.patch_SleepQueryCallback)
 	}
 
+	.patch_DrawScreen 0x416398 : {
+		*(.patch_DrawScreen)
+	}
+
 	.patch_CurseTrapDizzyStick 0x41AB48 : {
 		*(.patch_CurseTrapDizzyStick)
 	}
