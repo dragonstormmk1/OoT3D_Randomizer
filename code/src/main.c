@@ -64,4 +64,8 @@ void after_GlobalContext_Update() {
     }
 
     Multiplayer_Sync_Update();
+
+    if (gGlobalContext->state.running == 0) {
+        Model_DestroyAll();
+    }
 }

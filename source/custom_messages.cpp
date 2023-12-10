@@ -1055,6 +1055,15 @@ void CreateAlwaysIncludedMessages() {
         rutoDialog.Replace("$", ""); // Plural marker
         CreateMessageFromTextObject(0x4050, 0, 2, 3, AddColorsAndFormat(rutoDialog, { itemColor }));
     }
+
+    if (Settings::FishingHints) {
+        Text aquariumText = Text{ /*english*/ "You can have this if you catch a fish to put in the aquarium.",
+                                  /*french */ "",
+                                  /*spanish*/ "",
+                                  /*italian*/ "Puoi avere questo se catturi un pesce da mettere nell'acquario.",
+                                  /*german */ "" };
+        CreateMessageFromTextObject(0x40AE, 0, 2, 3, AddColorsAndFormat(aquariumText, {}));
+    }
 }
 
 std::vector<Text> CreateBaseCompassTexts() {

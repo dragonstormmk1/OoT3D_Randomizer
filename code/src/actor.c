@@ -55,6 +55,7 @@
 #include "bean_plant.h"
 #include "sheik.h"
 #include "skulltula_people.h"
+#include "fishing.h"
 
 #define OBJECT_GI_KEY 170
 #define OBJECT_GI_BOSSKEY 185
@@ -142,6 +143,10 @@ void Actor_Init() {
     gActorOverlayTable[0xF1].initInfo->init    = ItemOcarina_rInit;
     gActorOverlayTable[0xF1].initInfo->destroy = ItemOcarina_rDestroy;
     gActorOverlayTable[0xF1].initInfo->draw    = ItemOcarina_rDraw;
+
+    gActorOverlayTable[0xFE].initInfo->init   = Fishing_rInit;
+    gActorOverlayTable[0xFE].initInfo->update = Fishing_rUpdateFish;
+    gActorOverlayTable[0xFE].initInfo->draw   = Fishing_rDrawFish;
 
     gActorOverlayTable[0xFF].initInfo->update = ObjOshihiki_rUpdate;
 
