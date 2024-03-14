@@ -231,6 +231,7 @@ typedef enum {
     GANONSBOSSKEY_ANY_DUNGEON,
     GANONSBOSSKEY_OVERWORLD,
     GANONSBOSSKEY_ANYWHERE,
+    GANONSBOSSKEY_TRIFORCE, // Unselectable option, set automatically for Triforce Hunt
     GANONSBOSSKEY_LACS_VANILLA,
     GANONSBOSSKEY_LACS_MEDALLIONS,
     GANONSBOSSKEY_LACS_STONES,
@@ -496,6 +497,9 @@ typedef struct {
     u8 randomMQDungeons;
     u8 mqDungeonCount;
     u8 dungeonModesKnown[12]; // 12 dungeons which can be set Vanilla or MQ
+    u8 triforceHunt;
+    u8 triforcePiecesTotal;
+    u8 triforcePiecesRequired;
 
     u8 shuffleRewards;
     u8 linksPocketItem;
@@ -514,6 +518,8 @@ typedef struct {
     u8 shuffleFrogSongRupees;
     u8 shuffleAdultTradeQuest;
     u8 shuffleChestMinigame;
+    u8 shuffleEnemySouls;
+    u8 shuffleOcarinaButtons;
 
     u8 mapsAndCompasses;
     u8 keysanity;
@@ -564,6 +570,7 @@ typedef struct {
     u8 sheikHints;
     u8 dampeHint;
     u8 skulltulaHints;
+    u8 fishingHints;
     u8 compassesShowReward;
     u8 compassesShowWotH;
     u8 mapsShowDungeonMode;
@@ -724,6 +731,9 @@ typedef struct {
     u32 startingDungeonReward;
     u32 startingEquipment;
     u32 startingUpgrades;
+
+    u8 startingEnemySouls[8];
+    u8 startingOcarinaButtons;
 
     u8 startingTokens;
 

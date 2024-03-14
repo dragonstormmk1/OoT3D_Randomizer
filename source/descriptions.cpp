@@ -342,6 +342,20 @@ string_view mqDungeonCountDesc        = "Specify the number of Master Quest dung
 string_view setDungeonTypesDesc       = "If set, you can choose specific dungeons to be\n" //
                                         "vanilla, MQ, or random";                          //
 /*------------------------------                                                           //
+|         TRIFORCE HUNT        |                                                           //
+------------------------------*/                                                           //
+string_view triforceHuntDesc          = "Pieces of the Triforce have been scattered around\n"
+                                        "the world. Find some of them to beat the game.\n" //
+                                        "\n"                                               //
+                                        "Game is saved on completion, and Ganon's Castle\n"//
+                                        "key is given if beating the game again is desired.";
+string_view triforcePiecesTotalDesc   = "Set the total number of pieces that will appear\n"//
+                                        "in the world.\n\n"                                //
+                                        "Hold A to scroll faster.";                        //
+string_view triforcePiecesRequiredDesc= "Set the number of pieces required to beat the\n"  //
+                                        "game.\n\n"                                        //
+                                        "Hold A to scroll faster.";                        //
+/*------------------------------                                                           //
 |   SHUFFLE DUNGEON REWARDS    |                                                           //
 ------------------------------*/                                                           //
 string_view shuffleRewardsEndOfDungeon= "Medallions and Spiritual Stones will be given as\n"
@@ -530,6 +544,23 @@ string_view chestMinigameDesc         = "The 5 key chests in the Treasure Chest 
                                         "\n"                                               //
                                         "If you choose the \"pack\" option, you will get\n"//
                                         "all the keys at once, in a single item.";         //
+/*------------------------------                                                           //
+|     SHUFFLE ENEMY SOULS      |                                                           //
+------------------------------*/                                                           //
+string_view enemySoulDesc             = "Enemies will be invincible and appear as a purple\n"
+                                        "flame until you find their \"soul\".\n"           //
+                                        "Each enemy type will have a soul added into the\n"//
+                                        "item pool.\n\n"                                   //
+                                        "You can exclude some enemies by adding their\n"   //
+                                        "souls in the Starting Inventory.\n\n"             //
+                                        "WARNING: Incompatible with Master Quest Logic.";  //
+/*------------------------------                                                           //
+|   SHUFFLE OCARINA BUTTONS    |                                                           //
+------------------------------*/                                                           //
+string_view ocarinaButtonsDesc        = "Enabling this locks all Ocarina inputs, and adds\n"
+                                        "5 new items to find that each unlock one of the 5\n"
+                                        "Ocarina notes.\n\n"                               //
+                                        "They can also be added to the Starting Inventory.";
 /*------------------------------                                                           //
 |      MAPS AND COMPASSES      |                                                           //
 ------------------------------*/                                                           //
@@ -819,6 +850,8 @@ string_view dampeHintDesc            =  "Reading Dampe's diary will reveal the l
 string_view skulltulaHintDesc        =  "Talking to a cursed House of Skulltula resident\n"//
                                         "will tell you the reward they will give you for\n"//
                                         "removing their curse.";                           //
+string_view fishingHintsDesc         =  "The aquarium at the fishing pond will show what\n"//
+                                        "reward you can win as your current age.";         //
 /*------------------------------                                                           //
 |  MAP AND COMPASS GIVES INFO  |                                                           //
 ------------------------------*/                                                           //
@@ -1190,6 +1223,13 @@ string_view mirrorWorldEntranceDesc   = "Different entrances to the same region 
                                         "whether it is mirrored or not.";                  //
 string_view mirrorWorldRandomDesc     = "Whether the world is mirrored may change after\n" //
                                         "every loading zone inconsistently.";              //
+/*------------------------------                                                           //
+| SOLD OUT COSMETIC SHOP MODEL |                                                           //
+------------------------------*/                                                           //
+string_view betaSoldOutDesc           = "The game contains an unused model for sold out\n" //
+                                        "items in shops. It's a remade version of the N64\n"
+                                        "model, spelling \"Sold Out\" in English.\n\n"     //
+                                        "This setting enables its use in shops.";          //
 /*------------------------------                                                           //
 |        SHUFFLE MUSIC         |                                                           //
 ------------------------------*/                                                           //

@@ -161,8 +161,8 @@ void SaveFile_Init(u32 fileBaseIndex) {
         gSaveContext.eventChkInf[0x0] |= 0x0010;
     }
 
-    SaveFile_SetStartingInventory();
     SaveFile_InitExtSaveData(fileBaseIndex + gSaveContext.fileNum, 1);
+    SaveFile_SetStartingInventory();
 
     // Ingame Defaults
     gSaveContext.zTargetingSetting    = gSettingsContext.zTargeting;
@@ -535,6 +535,14 @@ void SaveFile_SetStartingInventory(void) {
         EventSet(0x18);
         gSaveContext.horseData.pos.y = 0xF000; // place Epona OoB, so you can't reach her without playing the song
     }
+
+    // Set owned ocarina buttons. If the shuffle option is disabled, this value will be ignored.
+    gExtSaveData.extInf[EXTINF_OCARINA_BUTTONS] = gSettingsContext.startingOcarinaButtons;
+
+    // Set owned enemy souls. If the shuffle option is disabled, these values will be ignored.
+    for (u32 i = 0; i < sizeof(gSettingsContext.startingEnemySouls); i++) {
+        gExtSaveData.extInf[EXTINF_ENEMYSOULSFLAGS_START + i] = gSettingsContext.startingEnemySouls[i];
+    }
 }
 
 // We will use the "unk" flags in DMT to represent adult trade ownership
@@ -826,5 +834,18 @@ void SaveFile_LoadFileSwordless(void) {
 
         // Mark pedestal item collected
         gExtSaveData.extInf[EXTINF_MASTERSWORDFLAGS] |= 2;
+    }
+}
+
+void SaveFile_BeforeLoadGame(u32 saveNumber) {
+    SaveFile_LoadExtSaveData(saveNumber);
+}
+
+void SaveFile_AfterLoadGame(void) {
+    // Give Ganon BK if Triforce Hunt has been completed
+    if (gSettingsContext.triforceHunt == ON && gExtSaveData.triforcePieces >= gSettingsContext.triforcePiecesRequired &&
+        (gSaveContext.dungeonItems[DUNGEON_GANONS_TOWER] & 1) == 0) {
+
+        ItemOverride_PushHardcodedItem(GI_GANON_BOSS_KEY);
     }
 }

@@ -403,7 +403,7 @@ typedef struct {
 typedef struct {
     /* 0x0000 */ u8 unk_00;
     /* 0x0001 */ char unk_01[0x01];
-    /* 0x0002 */ u8 unk_02;
+    /* 0x0002 */ u8 hammerQuakeFlag;
     /* 0x0003 */ u8 unk_03;
     /* 0x0004 */ char unk_04[0x04];
     /* 0x0008 */ u8 total; // total number of actors loaded
@@ -522,13 +522,15 @@ typedef struct GameState {
     /* 0x04 */ void (*main)(struct GameState*);
     /* 0x08 */ void (*destroy)(struct GameState*); // "cleanup"
     /* 0x0C */ void (*init)(struct GameState*);
-    // TODO
+    /* 0x10 */ u32 size;
+    /* 0x14 */ char unk_14[0xED];
+    /* 0x101*/ u8 running;
 } GameState;
+_Static_assert(sizeof(GameState) == 0x104, "GameState size");
 
 // Global Context (ram start: 0871E840)
 typedef struct GlobalContext {
-    // /* 0x0000 */ GameState state;
-    /* 0x0000 */ char unk_0[0x0104];
+    /* 0x0000 */ GameState state;
     /* 0x0104 */ s16 sceneNum;
     /* 0x0106 */ char unk_106[0x0012];
     /* 0x0118 */ SubGlobalContext_118 sub118;
@@ -573,7 +575,8 @@ typedef struct GlobalContext {
     /* 0x3A58 */ ObjectContext objectCtx;
     /* 0x43DC */ char unk_43DC[0x0854];
     /* 0x4C30 */ s8 roomNum;
-    /* 0x4C31 */ char unk_4C31[0x0FCF];
+    /* 0x4C31 */ char unk_4C31[0x0FCB];
+    /* 0x5BFC */ u32 gameplayFrames;
     /* 0x5C00 */ u8 linkAgeOnLoad;
     /* 0x5C01 */ u8 unk_5C01;
     /* 0x5C02 */ u8 curSpawn;
@@ -655,6 +658,27 @@ typedef struct TargetContext {
     // ... size unknown
 } TargetContext;
 
+typedef struct SAModelListEntry {
+    SkeletonAnimationModel* saModel;
+    u32 unk;
+} SAModelListEntry;
+
+typedef struct SubMainClass_180 {
+    /* 0x000 */ char unk_00[0x8];
+    /* 0x008 */ s32 saModelsCount1;
+    /* 0x00C */ s32 saModelsCount2;
+    /* 0x010 */ char unk_10[0x10];
+    /* 0x020 */ SAModelListEntry* saModelsList1; // 3D models
+    /* 0x024 */ SAModelListEntry* saModelsList2; // 2D billboards
+    /* ... size unknown*/
+} SubMainClass_180;
+
+typedef struct MainClass {
+    /* 0x000 */ char unk_00[0x180];
+    /* 0x180 */ SubMainClass_180 sub180;
+    /* ... size unknown*/
+} MainClass;
+
 extern GlobalContext* gGlobalContext;
 extern const u32 ItemSlots[];
 extern const char DungeonNames[][25];
@@ -672,6 +696,8 @@ extern const char DungeonNames[][25];
 #define gDrawItemTable ((DrawItemTableEntry*)0x4D88C8)
 #define gRestrictionFlags ((RestrictionFlags*)0x539DC4)
 #define PLAYER ((Player*)gGlobalContext->actorCtx.actorList[ACTORTYPE_PLAYER].first)
+#define gMainClass ((MainClass*)0x5BE5B8)
+#define gIsBottomScreenDimmed (*(s32*)0x5043EC)
 
 #define GearSlot(X) (X - ITEM_SWORD_KOKIRI)
 
@@ -862,5 +888,19 @@ typedef void (*Animation_Change_proc)(SkelAnime* anime, s32 animation_index, f32
                                       f32 end_frame, f32 morph_frames, s32 mode) __attribute__((pcs("aapcs-vfp")));
 #define Animation_Change_addr 0x375C08
 #define Animation_Change ((Animation_Change_proc)Animation_Change_addr)
+
+typedef void (*EffectSsDeadDb_Spawn_proc)(GlobalContext* globalCtx, Vec3f* position, Vec3f* velocity,
+                                          Vec3f* acceleration, s16 scale, s16 scale_step, s16 prim_r, s16 prim_g,
+                                          s16 prim_b, s16 prim_a, s16 env_r, s16 env_g, s16 env_b, s16 unused,
+                                          s32 frame_duration, s16 play_sound);
+#define EffectSsDeadDb_Spawn_addr 0x3642F4
+#define EffectSsDeadDb_Spawn ((EffectSsDeadDb_Spawn_proc)EffectSsDeadDb_Spawn_addr)
+
+typedef void (*SaveGame_proc)(GlobalContext* globalCtx, u8 isSaveFileCreation);
+#define SaveGame_addr 0x2FDAC8
+#define SaveGame ((SaveGame_proc)SaveGame_addr)
+
+typedef s32 (*Message_GetState_proc)(void);
+#define Message_GetState ((Message_GetState_proc)0x3769d8)
 
 #endif //_Z3D_H_
